@@ -22,4 +22,12 @@ O Desenvolvimento para iOs é difícil e com nicho fechado, nem tudo que você a
 O maior problema do sistema operacional Android, é a alta variedade de aparelhos que utilizam do mesmo, celulares, relógiom aplicativos de televisão smart, arduíno e etc. Programar para que seja compatível na maior gama de aparelhos e variedades torna o desenvolvimento Android desafiador.
 
 # Atividade 3
+![Arquitetura DataBase Discord](https://pbs.twimg.com/media/FrHG_eEaEAALZvd?format=jpg&name=4096x4096)
 
+Em 2015 o discord foi lançado com um único conjunto de réplicas do MongoDB, porém, em novembro do mesmo ano, o Discord teve seus primeiros 100 Milhoes de mensagens armazenadas no banco de dados e os dados e índices não cabiam mais na RAM, a latencia do mesmo se tornou imprevisível.
+logo, eles precisavam de um banco de dados que atendesse os requisitos de, principalmente, a escabilidade linear, baixa manutenção e failover automático, pois o mongoDB não estava mais sendo utilizavél.
+Mas com o passar do tempo, foi acumulando mais mensagens, e a Cassandra fornece disponibilidade em vez de consistência, ou seja, se dois usuários estão realizando uma ação na mesma mensagem como editá-la e/ou apagar, os usuários recebiam erros na edição.
+Em 2022 o Discord alcancou um trilhão de mensagens, e novamente, estava sofrendo do mesmo problema. E dentre os problemas, havia um grande problemas:
+Partição Quente, um termo que o discord usa quando há um tráfego alto que chega a uma partição específica, resultando na simultaneidade ilimitada, levando a latencia. Leituras são mais caras que as gravações no Cassandra, então quando há mais leituras e a partição específica fica para trás, causa picos de latência em todas as outras operações. 
+E para resolver ustilizaram o ScryllaDB, alternativa da cassandra, mas em c++, que resolveria os problemas em partes, pois as partições foi necessário criar um serviço de dados, uma camada entre o servidor da API e os clusters do banco de dados.
+No fim, o Discord teve problemas com a escabilidade do seu aplicativo por conta da quantidade de mensagens armazenadas, e para resolver, tiveram que analisar os trade offs para decidir e melhorar o banco de dados existente.
